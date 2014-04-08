@@ -67,7 +67,7 @@ aluswitch: process (Accumulator, Data, OpSel)
 			when "100" => 	Result <= Accumulator or Data;
 			when "101" =>  Result <= Data;
 			when "110" =>  Result <= std_logic_vector(signed(Accumulator) + signed(Data));
-			when "111" =>	Result <= Accumulator;
+			when "111" =>	Result <= Data;
 			when others =>	Result <= "0000";
 		end case;
 	end process;
