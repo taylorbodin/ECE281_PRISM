@@ -27,6 +27,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
+
 entity ALU is
 	 port(
 		 OpSel : in STD_LOGIC_VECTOR(2 downto 0);
@@ -58,10 +59,17 @@ begin
 --  7     : LD
 aluswitch: process (Accumulator, Data, OpSel)
         begin
-		-- enter your if/then/else or case statements here
-		end process;
-
--- OR, enter your conditional signal statement here
-
+		case OpSel is
+			when "000" => 	Result <= Accumulator and Data;
+			when "001" =>	Result <= std_logic_vector(signed(not Accumulator) + 1);
+			when "010" =>	Result <= not Accumulator;
+			when "011" =>	Result <= std_logic_vector(signed(Accumulator) ror 1);
+			when "100" => 	Result <= Accumulator or Data;
+			when "101" =>  Result <= Data;
+			when "110" =>  Result <= std_logic_vector(signed(Accumulator) + signed(Data));
+			when "111" =>	Result <= Accumulator;
+			when others =>	Result <= "0000";
+		end case;
+	end process;
 end ALU;
 
